@@ -12,7 +12,7 @@ class PostController extends Controller
     public function index()
     {
         //$posts = Post::orderBy('id','DESC')->paginate();
-        $posts = Post::latest()->paginate(1);
+        $posts = Post::latest()->paginate();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -68,7 +68,7 @@ class PostController extends Controller
         $filters = Arr::except($request->all(), '_token');
         $posts = Post::where('title', 'LIKE', "%{$request->search}%")
                         ->orWhere('content', 'LIKE', "%{$request->search}%")
-                        ->paginate(1);
+                        ->paginate();
         return view('admin.posts.index', compact('posts','filters'));
     }
 }
